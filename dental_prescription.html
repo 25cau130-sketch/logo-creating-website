@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Prescription</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .prescription-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .clinic-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #2e8b57;
+            padding-bottom: 20px;
+        }
+        
+        .clinic-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2e8b57;
+            margin-bottom: 5px;
+        }
+        
+        .clinic-specialty {
+            font-size: 16px;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        .clinic-contact {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .prescription-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .patient-info, .dentist-info {
+            flex: 1;
+        }
+        
+        .patient-info h3, .dentist-info h3 {
+            color: #2e8b57;
+            border-bottom: 1px solid #2e8b57;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .info-row {
+            display: flex;
+            margin-bottom: 8px;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            width: 120px;
+            color: #666;
+        }
+        
+        .info-value {
+            flex: 1;
+        }
+        
+        .prescription-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #2e8b57;
+            margin: 20px 0;
+            text-decoration: underline;
+        }
+        
+        .medication-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        .medication-table th {
+            background-color: #2e8b57;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        .medication-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        
+        .medication-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .treatment-section {
+            margin: 30px 0;
+            padding: 15px;
+            background-color: #f0fff0;
+            border-left: 4px solid #2e8b57;
+        }
+        
+        .treatment-section h3 {
+            color: #2e8b57;
+            margin-bottom: 15px;
+        }
+        
+        .treatment-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .treatment-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .treatment-list li:before {
+            content: "•";
+            color: #2e8b57;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .followup-section {
+            margin: 30px 0;
+            padding: 15px;
+            background-color: #e6f7ff;
+            border-left: 4px solid #2e8b57;
+        }
+        
+        .followup-section h3 {
+            color: #2e8b57;
+            margin-bottom: 10px;
+        }
+        
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        
+        .signature-box {
+            width: 200px;
+            height: 80px;
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .signature-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .print-btn {
+            display: block;
+            width: 150px;
+            margin: 30px auto;
+            padding: 12px;
+            background-color: #2e8b57;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .print-btn:hover {
+            background-color: #257247;
+        }
+        
+        .water-mark {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 12px;
+            color: #aaa;
+            transform: rotate(-15deg);
+        }
+        
+        @media print {
+            .print-btn, .water-mark {
+                display: none;
+            }
+            
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            
+            .prescription-container {
+                border: none;
+                box-shadow: none;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="prescription-container">
+        <div class="clinic-header">
+            <div class="clinic-name">SMILE CARE DENTAL CLINIC</div>
+            <div class="clinic-specialty">Comprehensive Dental Solutions</div>
+            <div class="clinic-contact">123 Dental Avenue, Health City, HC 54321 | Phone: (555) 987-6543 | Email: info@smilecare.com</div>
+        </div>
+        
+        <div class="prescription-header">
+            <div class="patient-info">
+                <h3>Patient Information</h3>
+                <div class="info-row">
+                    <div class="info-label">Name:</div>
+                    <div class="info-value">Emily Johnson</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Age:</div>
+                    <div class="info-value">28 years</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Gender:</div>
+                    <div class="info-value">Female</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Patient ID:</div>
+                    <div class="info-value">SCD-2023-98765</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Date:</div>
+                    <div class="info-value">July 20, 2023</div>
+                </div>
+            </div>
+            
+            <div class="dentist-info">
+                <h3>Dentist Information</h3>
+                <div class="info-row">
+                    <div class="info-label">Name:</div>
+                    <div class="info-value">Dr. Michael Chen, DDS</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Specialty:</div>
+                    <div class="info-value">General Dentistry</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">License:</div>
+                    <div class="info-value">DD-45678</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Clinic:</div>
+                    <div class="info-value">Smile Care Dental</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="prescription-title">DENTAL PRESCRIPTION & TREATMENT PLAN</div>
+        
+        <div class="treatment-section">
+            <h3>Diagnosis:</h3>
+            <p>Chronic gingivitis with mild periodontal pockets (3-4mm), early stage dental caries on molars #18 and #30, and moderate dental plaque accumulation.</p>
+        </div>
+        
+        <div class="treatment-section">
+            <h3>Treatment Plan:</h3>
+            <ul class="treatment-list">
+                <li>Professional dental cleaning (scaling and root planing)</li>
+                <li>Composite fillings for molars #18 and #30</li>
+                <li>Fluoride treatment for enamel strengthening</li>
+                <li>Oral hygiene instruction and education</li>
+                <li>Follow-up appointment in 4 weeks for periodontal evaluation</li>
+            </ul>
+        </div>
+        
+        <table class="medication-table">
+            <thead>
+                <tr>
+                    <th>Medication</th>
+                    <th>Dosage</th>
+                    <th>Frequency</th>
+                    <th>Duration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Amoxicillin 500mg</td>
+                    <td>500mg</td>
+                    <td>Every 8 hours</td>
+                    <td>7 days</td>
+                </tr>
+                <tr>
+                    <td>Ibuprofen 400mg</td>
+                    <td>400mg</td>
+                    <td>Every 6 hours as needed for pain</td>
+                    <td>3 days</td>
+                </tr>
+                <tr>
+                    <td>Chlorhexidine Mouthwash 0.12%</td>
+                    <td>15ml</td>
+                    <td>Twice daily (morning and night)</td>
+                    <td>14 days</td>
+                </tr>
+                <tr>
+                    <td>Fluoride Toothpaste (1450ppm)</td>
+                    <td>Pea-sized amount</td>
+                    <td>Twice daily</td>
+                    <td>Ongoing</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="followup-section">
+            <h3>Post-Treatment Instructions:</h3>
+            <ul class="treatment-list">
+                <li>Avoid eating or drinking for 30 minutes after fluoride treatment</li>
+                <li>Use chlorhexidine mouthwash after brushing, do not rinse with water afterward</li>
+                <li>Avoid hard, sticky, or sugary foods for at least 24 hours after fillings</li>
+                <li>Maintain good oral hygiene with gentle brushing and daily flossing</li>
+                <li>Schedule follow-up appointment for periodontal reevaluation</li>
+                <li>Contact clinic immediately if experiencing severe pain, swelling, or bleeding</li>
+            </ul>
+        </div>
+        
+        <div class="signature-section">
+            <div class="signature-box">
+                <div style="height: 40px;"></div>
+                <div class="signature-label">Dentist's Signature</div>
+            </div>
+            <div class="signature-box">
+                <div style="height: 40px;"></div>
+                <div class="signature-label">Date</div>
+            </div>
+        </div>
+        
+        <button class="print-btn" onclick="window.print()">Print Prescription</button>
+    </div>
+    
+    <div class="water-mark">For Dental Use Only - Smile Care Dental Clinic</div>
+</body>
+</html>
