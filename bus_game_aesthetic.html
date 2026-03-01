@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon City Bus</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        .game-container {
+            position: relative;
+            width: 900px;
+            height: 600px;
+            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+            border: 3px solid #00f5ff;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.3);
+            overflow: hidden;
+        }
+        
+        .game-title {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 36px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            background: linear-gradient(90deg, #00f5ff, #ff00f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+            z-index: 10;
+        }
+        
+        .game-area {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, #1a1a2e, #16213e);
+            overflow: hidden;
+        }
+        
+        .road {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 100%;
+            background: linear-gradient(to bottom, #2c2c4a, #1a1a2e);
+            border-left: 3px dashed #00f5ff;
+            border-right: 3px dashed #00f5ff;
+        }
+        
+        .road-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 40px,
+                rgba(0, 245, 255, 0.2) 40px,
+                rgba(0, 245, 255, 0.2) 45px,
+                transparent 45px,
+                transparent 80px
+            );
+            animation: moveLines 1s linear infinite;
+        }
+        
+        @keyframes moveLines {
+            from { transform: translateY(0); }
+            to { transform: translateY(45px); }
+        }
+        
+        .bus {
+            position: absolute;
+            width: 120px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff00f5, #00f5ff);
+            border-radius: 10px 10px 5px 5px;
+            z-index: 5;
+            transition: transform 0.1s;
+            box-shadow: 0 0 20px rgba(255, 0, 245, 0.5);
+            bottom: 50px;
+        }
+        
+        .bus::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 10px;
+            width: 100px;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+        }
+        
+        .bus::after {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 20px;
+            right: 20px;
+            height: 15px;
+            background: linear-gradient(to bottom, rgba(0, 245, 255, 0.8), rgba(255, 0, 245, 0.8));
+            border-radius: 3px;
+        }
+        
+        .passenger {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            z-index: 6;
+        }
+        
+        .obstacle {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff0000, #ff8c00);
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            z-index: 3;
+        }
+        
+        .bus-stop {
+            position: absolute;
+            width: 80px;
+            height: 40px;
+            background: linear-gradient(135deg, #00f5ff, #00b8ff);
+            border-radius: 5px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .score-display {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #00f5ff;
+            text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+            z-index: 10;
+        }
+        
+        .passenger-count {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #00f5ff;
+            text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+            z-index: 10;
+        }
+        
+        .controls-info {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid #00f5ff;
+            font-size: 14px;
+            z-index: 10;
+        }
+        
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 40px;
+            border-radius: 15px;
+            border: 2px solid #ff00f5;
+            text-align: center;
+            z-index: 20;
+            display: none;
+        }
+        
+        .game-over h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #ff00f5, #00f5ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .game-over p {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #00f5ff;
+        }
+        
+        .restart-btn {
+            background: linear-gradient(135deg, #ff00f5, #00f5ff);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(255, 0, 245, 0.5);
+        }
+        
+        .restart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 245, 0.7);
+        }
+        
+        .start-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 30;
+        }
+        
+        .start-screen h1 {
+            font-size: 72px;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #00f5ff, #ff00f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+        }
+        
+        .start-screen p {
+            font-size: 24px;
+            margin-bottom: 40px;
+            color: #00f5ff;
+        }
+        
+        .start-btn {
+            background: linear-gradient(135deg, #ff00f5, #00f5ff);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(255, 0, 245, 0.5);
+        }
+        
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 245, 0.7);
+        }
+        
+        @media (max-width: 900px) {
+            .game-container {
+                width: 95%;
+                height: 80vh;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .game-title {
+                font-size: 24px;
+                letter-spacing: 2px;
+            }
+            
+            .start-screen h1 {
+                font-size: 48px;
+            }
+            
+            .start-screen p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1 class="game-title">Neon City Bus</h1>
+        <div class="score-display">Score: <span id="score">0</span></div>
+        <div class="passenger-count">Passengers: <span id="passengers">0</span>/10</div>
+        
+        <div class="start-screen" id="startScreen">
+            <h1>NEON CITY BUS</h1>
+            <p>Pick up passengers and avoid obstacles!</p>
+            <button class="start-btn" id="startBtn">Start Game</button>
+        </div>
+        
+        <div class="game-area" id="gameArea">
+            <div class="road">
+                <div class="road-lines"></div>
+            </div>
+            <div class="bus" id="bus"></div>
+        </div>
+        
+        <div class="game-over" id="gameOver">
+            <h2>GAME OVER</h2>
+            <p>Your Score: <span id="finalScore">0</span></p>
+            <button class="restart-btn" id="restartBtn">Play Again</button>
+        </div>
+        
+        <div class="controls-info">
+            Use Arrow Keys or A/D to Move | Pick Up Passengers (↑) | Avoid Obstacles
+        </div>
+    </div>
+    
+    <script>
+        // Game elements
+        const gameArea = document.getElementById('gameArea');
+        const bus = document.getElementById('bus');
+        const startScreen = document.getElementById('startScreen');
+        const gameOver = document.getElementById('gameOver');
+        const startBtn = document.getElementById('startBtn');
+        const restartBtn = document.getElementById('restartBtn');
+        const scoreDisplay = document.getElementById('score');
+        const passengerDisplay = document.getElementById('passengers');
+        const finalScoreDisplay = document.getElementById('finalScore');
+        
+        // Game variables
+        let busPosition = 400; // Starting position (center)
+        let gameSpeed = 5;
+        let score = 0;
+        let passengers = 0;
+        let gameInterval;
+        let obstacleInterval;
+        let busStopInterval;
+        let obstacles = [];
+        let busStops = [];
+        let gameRunning = false;
+        
+        // Initialize bus position
+        bus.style.left = busPosition + 'px';
+        
+        // Start game
+        startBtn.addEventListener('click', startGame);
+        restartBtn.addEventListener('click', startGame);
+        
+        function startGame() {
+            // Reset game state
+            score = 0;
+            passengers = 0;
+            gameSpeed = 5;
+            busPosition = 400;
+            bus.style.left = busPosition + 'px';
+            
+            scoreDisplay.textContent = score;
+            passengerDisplay.textContent = passengers;
+            
+            // Clear existing elements
+            document.querySelectorAll('.obstacle').forEach(obstacle => {
+                obstacle.remove();
+            });
+            document.querySelectorAll('.bus-stop').forEach(stop => {
+                stop.remove();
+            });
+            document.querySelectorAll('.passenger').forEach(passenger => {
+                passenger.remove();
+            });
+            
+            obstacles = [];
+            busStops = [];
+            
+            // Hide screens
+            startScreen.style.display = 'none';
+            gameOver.style.display = 'none';
+            
+            // Start game loop
+            gameRunning = true;
+            gameInterval = setInterval(gameLoop, 20);
+            obstacleInterval = setInterval(createObstacle, 2000);
+            busStopInterval = setInterval(createBusStop, 8000);
+        }
+        
+        function gameLoop() {
+            if (!gameRunning) return;
+            
+            // Move obstacles
+            obstacles.forEach((obstacle, index) => {
+                const obstacleElement = obstacle.element;
+                const top = parseInt(obstacleElement.style.top) || 0;
+                
+                // Move obstacle down
+                obstacleElement.style.top = (top + gameSpeed) + 'px';
+                
+                // Check collision
+                if (checkCollision(bus, obstacleElement)) {
+                    endGame();
+                    return;
+                }
+                
+                // Remove obstacle if off screen
+                if (top > 600) {
+                    obstacleElement.remove();
+                    obstacles.splice(index, 1);
+                }
+            });
+            
+            // Move bus stops
+            busStops.forEach((stop, index) => {
+                const stopElement = stop.element;
+                const top = parseInt(stopElement.style.top) || 0;
+                
+                // Move bus stop down
+                stopElement.style.top = (top + gameSpeed - 2) + 'px';
+                
+                // Check if bus can pick up passengers
+                if (checkPassengerPickup(bus, stopElement) && passengers < 10) {
+                    passengers++;
+                    passengerDisplay.textContent = passengers;
+                    stopElement.remove();
+                    busStops.splice(index, 1);
+                    
+                    // Add passenger to bus
+                    addPassengerToBus();
+                }
+                
+                // Remove bus stop if off screen
+                if (top > 600) {
+                    stopElement.remove();
+                    busStops.splice(index, 1);
+                }
+            });
+            
+            // Increase score
+            if (Math.random() < 0.02) {
+                score++;
+                scoreDisplay.textContent = score;
+                
+                // Increase difficulty
+                if (score % 10 === 0) {
+                    gameSpeed += 0.5;
+                }
+            }
+        }
+        
+        function createObstacle() {
+            if (!gameRunning) return;
+            
+            const obstacle = document.createElement('div');
+            obstacle.className = 'obstacle';
+            
+            // Random position (left, center, right)
+            const positions = [300, 400, 500];
+            const randomPosition = positions[Math.floor(Math.random() * positions.length)];
+            
+            obstacle.style.left = randomPosition + 'px';
+            obstacle.style.top = '-60px';
+            
+            gameArea.appendChild(obstacle);
+            obstacles.push({ element: obstacle, position: randomPosition });
+        }
+        
+        function createBusStop() {
+            if (!gameRunning || passengers >= 10) return;
+            
+            const stop = document.createElement('div');
+            stop.className = 'bus-stop';
+            
+            // Random position (left, center, right)
+            const positions = [300, 400, 500];
+            const randomPosition = positions[Math.floor(Math.random() * positions.length)];
+            
+            stop.style.left = randomPosition + 'px';
+            stop.style.top = '-40px';
+            stop.textContent = 'BUS STOP';
+            
+            gameArea.appendChild(stop);
+            busStops.push({ element: stop, position: randomPosition });
+        }
+        
+        function addPassengerToBus() {
+            const passenger = document.createElement('div');
+            passenger.className = 'passenger';
+            
+            // Position passenger in bus
+            const passengerCount = document.querySelectorAll('.passenger').length;
+            const xPos = 20 + (passengerCount % 5) * 15;
+            const yPos = 30 + Math.floor(passengerCount / 5) * 15;
+            
+            passenger.style.left = xPos + 'px';
+            passenger.style.top = yPos + 'px';
+            
+            bus.appendChild(passenger);
+        }
+        
+        function checkCollision(bus, obstacle) {
+            const busRect = bus.getBoundingClientRect();
+            const obstacleRect = obstacle.getBoundingClientRect();
+            
+            return !(
+                busRect.right < obstacleRect.left ||
+                busRect.left > obstacleRect.right ||
+                busRect.bottom < obstacleRect.top ||
+                busRect.top > obstacleRect.bottom
+            );
+        }
+        
+        function checkPassengerPickup(bus, stop) {
+            const busRect = bus.getBoundingClientRect();
+            const stopRect = stop.getBoundingClientRect();
+            
+            // Check if bus is close enough to stop
+            return !(
+                busRect.right < stopRect.left - 20 ||
+                busRect.left > stopRect.right + 20 ||
+                busRect.bottom < stopRect.top ||
+                busRect.top > stopRect.bottom
+            );
+        }
+        
+        function endGame() {
+            gameRunning = false;
+            clearInterval(gameInterval);
+            clearInterval(obstacleInterval);
+            clearInterval(busStopInterval);
+            
+            finalScoreDisplay.textContent = score;
+            gameOver.style.display = 'flex';
+        }
+        
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            if (!gameRunning) return;
+            
+            switch(e.key) {
+                case 'ArrowLeft':
+                case 'a':
+                case 'A':
+                    if (busPosition > 300) {
+                        busPosition -= 100;
+                        bus.style.left = busPosition + 'px';
+                    }
+                    break;
+                case 'ArrowRight':
+                case 'd':
+                case 'D':
+                    if (busPosition < 500) {
+                        busPosition += 100;
+                        bus.style.left = busPosition + 'px';
+                    }
+                    break;
+                case 'ArrowUp':
+                case 'w':
+                case 'W':
+                    // Honk horn - just for fun
+                    console.log('Honk Honk!');
+                    break;
+            }
+        });
+        
+        // Touch controls for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+        
+        document.addEventListener('touchend', (e) => {
+            if (!gameRunning) return;
+            
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+        
+        function handleSwipe() {
+            const swipeDistance = touchStartX - touchEndX;
+            
+            if (swipeDistance > 50) { // Left swipe
+                if (busPosition > 300) {
+                    busPosition -= 100;
+                    bus.style.left = busPosition + 'px';
+                }
+            } else if (swipeDistance < -50) { // Right swipe
+                if (busPosition < 500) {
+                    busPosition += 100;
+                    bus.style.left = busPosition + 'px';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

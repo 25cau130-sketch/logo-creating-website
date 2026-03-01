@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aesthetic YouTube Logo</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+        
+        .container {
+            text-align: center;
+            color: white;
+        }
+        
+        .logo-container {
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .youtube-logo {
+            width: 300px;
+            height: 200px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff00f5, #00f5ff, #ff00f5);
+            background-size: 400% 400%;
+            border-radius: 20px;
+            animation: gradientShift 3s ease infinite;
+            filter: blur(1px);
+            z-index: 1;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .logo-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff00f5, #00f5ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 30px rgba(255, 0, 245, 0.5);
+            margin-right: 20px;
+            position: relative;
+        }
+        
+        .play-button::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 20px solid white;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            margin-left: 5px;
+        }
+        
+        .logo-text {
+            font-size: 64px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00f5ff, #ff00f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            font-weight: 400;
+            background: linear-gradient(135deg, #00f5ff, #ff00f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 5px rgba(0, 245, 255, 0.3);
+            margin-top: 10px;
+        }
+        
+        .description {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 245, 255, 0.2);
+        }
+        
+        .description h2 {
+            color: #00f5ff;
+            margin-bottom: 15px;
+        }
+        
+        .description p {
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .youtube-logo {
+                width: 200px;
+                height: 150px;
+            }
+            
+            .logo-text {
+                font-size: 48px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .youtube-logo {
+                width: 150px;
+                height: 100px;
+            }
+            
+            .logo-text {
+                font-size: 36px;
+            }
+            
+            .play-button {
+                width: 50px;
+                height: 50px;
+                margin-right: 10px;
+            }
+            
+            .play-button::after {
+                border-left-width: 12px;
+                border-top-width: 8px;
+                border-bottom-width: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <div class="youtube-logo">
+                <div class="logo-bg"></div>
+                <div class="logo-content">
+                    <div class="play-button"></div>
+                    <div class="logo-text">YouTube</div>
+                </div>
+            </div>
+        </div>
+        <div class="subtitle">Video Platform</div>
+        <div class="description">
+            <h2>Aesthetic YouTube Logo</h2>
+            <p>This modern interpretation of the YouTube logo features a gradient background with animated color shifting, a glowing play button, and gradient text. The design combines the classic YouTube elements with a contemporary cyberpunk aesthetic.</p>
+        </div>
+    </div>
+</body>
+</html>

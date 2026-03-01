@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Bio Form</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .photo-upload {
+            border: 2px dashed #ccc;
+            padding: 30px;
+            text-align: center;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            cursor: pointer;
+        }
+        
+        .photo-upload:hover {
+            border-color: #007bff;
+            background-color: #e9f7fe;
+        }
+        
+        .photo-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 15px auto;
+            border: 3px solid #007bff;
+        }
+        
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 30px auto 0;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        
+        .required {
+            color: #dc3545;
+        }
+        
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        
+        .interest-checkbox {
+            margin-right: 8px;
+        }
+        
+        @media (max-width: 600px) {
+            .interests-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student Bio Form</h1>
+        
+        <form id="studentBioForm">
+            <div class="form-group">
+                <label for="studentName">Full Name <span class="required">*</span></label>
+                <input type="text" id="studentName" name="studentName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="studentId">Student ID <span class="required">*</span></label>
+                <input type="text" id="studentId" name="studentId" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="grade">Grade <span class="required">*</span></label>
+                <select id="grade" name="grade" required>
+                    <option value="">Select Grade</option>
+                    <option value="9">9th Grade</option>
+                    <option value="10">10th Grade</option>
+                    <option value="11">11th Grade</option>
+                    <option value="12">12th Grade</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email">
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone">
+            </div>
+            
+            <div class="form-group">
+                <label>Photo Upload <span class="required">*</span></label>
+                <div class="photo-upload" onclick="document.getElementById('photoInput').click()">
+                    <p>Click to upload photo or drag and drop</p>
+                    <p>(JPG, PNG, max 5MB)</p>
+                    <img id="photoPreview" class="photo-preview" style="display: none;">
+                    <input type="file" id="photoInput" name="photo" accept="image/*" style="display: none;" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Interests (Select up to 5)</label>
+                <div class="interests-grid">
+                    <div>
+                        <input type="checkbox" id="sports" name="interests" class="interest-checkbox" value="Sports">
+                        <label for="sports">Sports</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="music" name="interests" class="interest-checkbox" value="Music">
+                        <label for="music">Music</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="art" name="interests" class="interest-checkbox" value="Art">
+                        <label for="art">Art</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="science" name="interests" class="interest-checkbox" value="Science">
+                        <label for="science">Science</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="technology" name="interests" class="interest-checkbox" value="Technology">
+                        <label for="technology">Technology</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="literature" name="interests" class="interest-checkbox" value="Literature">
+                        <label for="literature">Literature</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="math" name="interests" class="interest-checkbox" value="Mathematics">
+                        <label for="math">Mathematics</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="debate" name="interests" class="interest-checkbox" value="Debate">
+                        <label for="debate">Debate</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="programming" name="interests" class="interest-checkbox" value="Programming">
+                        <label for="programming">Programming</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="bio">Personal Bio <span class="required">*</span></label>
+                <textarea id="bio" name="bio" placeholder="Tell us about yourself, your achievements, goals, and what makes you unique..." required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="achievements">Notable Achievements</label>
+                <textarea id="achievements" name="achievements" placeholder="List any awards, honors, or significant accomplishments..."></textarea>
+            </div>
+            
+            <button type="submit" class="btn">Submit Bio</button>
+        </form>
+    </div>
+    
+    <script>
+        // Photo preview functionality
+        document.getElementById('photoInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const preview = document.getElementById('photoPreview');
+                    preview.src = event.target.result;
+                    preview.style.display = 'block';
+                    document.querySelector('.photo-upload p').textContent = 'Photo uploaded successfully';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Form submission
+        document.getElementById('studentBioForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const formData = {
+                name: document.getElementById('studentName').value,
+                studentId: document.getElementById('studentId').value,
+                grade: document.getElementById('grade').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                photo: document.getElementById('photoInput').files[0]?.name || 'No photo',
+                interests: Array.from(document.querySelectorAll('input[name="interests"]:checked')).map(el => el.value),
+                bio: document.getElementById('bio').value,
+                achievements: document.getElementById('achievements').value
+            };
+            
+            // Display submission confirmation
+            alert(`Bio submitted successfully!\n\nName: ${formData.name}\nGrade: ${formData.grade}\nInterests: ${formData.interests.join(', ')}`);
+            
+            // In a real application, you would send this data to a server
+            console.log('Form data:', formData);
+            
+            // Reset form
+            // this.reset();
+            // document.getElementById('photoPreview').style.display = 'none';
+        });
+        
+        // Limit interest selection to 5
+        document.querySelectorAll('input[name="interests"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const checkedBoxes = document.querySelectorAll('input[name="interests"]:checked');
+                if (checkedBoxes.length > 5) {
+                    this.checked = false;
+                    alert('You can select a maximum of 5 interests');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
