@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Prescription</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .prescription-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border: 1px solid #ddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hospital-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #4a90e2;
+            padding-bottom: 20px;
+        }
+        
+        .hospital-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4a90e2;
+            margin-bottom: 5px;
+        }
+        
+        .hospital-address {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .hospital-contact {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .prescription-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .patient-info, .doctor-info {
+            flex: 1;
+        }
+        
+        .patient-info h3, .doctor-info h3 {
+            color: #4a90e2;
+            border-bottom: 1px solid #4a90e2;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .info-row {
+            display: flex;
+            margin-bottom: 8px;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            width: 120px;
+            color: #666;
+        }
+        
+        .info-value {
+            flex: 1;
+        }
+        
+        .prescription-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #4a90e2;
+            margin: 20px 0;
+            text-decoration: underline;
+        }
+        
+        .medication-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        .medication-table th {
+            background-color: #4a90e2;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        .medication-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+        
+        .medication-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .instructions {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f0f8ff;
+            border-left: 4px solid #4a90e2;
+        }
+        
+        .instructions h3 {
+            color: #4a90e2;
+            margin-bottom: 10px;
+        }
+        
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        
+        .signature-box {
+            width: 200px;
+            height: 80px;
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .signature-label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .print-btn {
+            display: block;
+            width: 150px;
+            margin: 30px auto;
+            padding: 12px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .print-btn:hover {
+            background-color: #3a7bc8;
+        }
+        
+        @media print {
+            .print-btn {
+                display: none;
+            }
+            
+            body {
+                padding: 0;
+                margin: 0;
+            }
+            
+            .prescription-container {
+                border: none;
+                box-shadow: none;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="prescription-container">
+        <div class="hospital-header">
+            <div class="hospital-name">CITY GENERAL HOSPITAL</div>
+            <div class="hospital-address">123 Health Street, Medical City, MC 12345</div>
+            <div class="hospital-contact">Phone: (555) 123-4567 | Email: info@citygeneral.com</div>
+        </div>
+        
+        <div class="prescription-header">
+            <div class="patient-info">
+                <h3>Patient Information</h3>
+                <div class="info-row">
+                    <div class="info-label">Name:</div>
+                    <div class="info-value">John Doe</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Age:</div>
+                    <div class="info-value">32 years</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Gender:</div>
+                    <div class="info-value">Male</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Patient ID:</div>
+                    <div class="info-value">CGH-2023-45678</div>
+                </div>
+            </div>
+            
+            <div class="doctor-info">
+                <h3>Prescribing Doctor</h3>
+                <div class="info-row">
+                    <div class="info-label">Name:</div>
+                    <div class="info-value">Dr. Sarah Johnson</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Specialty:</div>
+                    <div class="info-value">Internal Medicine</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">License:</div>
+                    <div class="info-value">MD-12345</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Date:</div>
+                    <div class="info-value">June 15, 2023</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="prescription-title">PRESCRIPTION</div>
+        
+        <table class="medication-table">
+            <thead>
+                <tr>
+                    <th>Medication</th>
+                    <th>Dosage</th>
+                    <th>Frequency</th>
+                    <th>Duration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Amoxicillin 500mg</td>
+                    <td>500mg</td>
+                    <td>Every 8 hours</td>
+                    <td>7 days</td>
+                </tr>
+                <tr>
+                    <td>Ibuprofen 200mg</td>
+                    <td>200mg</td>
+                    <td>Every 6 hours as needed</td>
+                    <td>5 days</td>
+                </tr>
+                <tr>
+                    <td>Vitamin C 500mg</td>
+                    <td>500mg</td>
+                    <td>Once daily</td>
+                    <td>14 days</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="instructions">
+            <h3>Special Instructions:</h3>
+            <p>1. Take Amoxicillin with food to prevent stomach upset</p>
+            <p>2. Complete the full course of antibiotics even if symptoms improve</p>
+            <p>3. Do not exceed 3200mg of Ibuprofen in 24 hours</p>
+            <p>4. Drink plenty of fluids while taking these medications</p>
+            <p>5. Contact your doctor if you experience any adverse reactions</p>
+        </div>
+        
+        <div class="signature-section">
+            <div class="signature-box">
+                <div style="height: 40px;"></div>
+                <div class="signature-label">Doctor's Signature</div>
+            </div>
+            <div class="signature-box">
+                <div style="height: 40px;"></div>
+                <div class="signature-label">Pharmacist's Signature</div>
+            </div>
+        </div>
+        
+        <button class="print-btn" onclick="window.print()">Print Prescription</button>
+    </div>
+</body>
+</html>
