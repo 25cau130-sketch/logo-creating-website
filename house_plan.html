@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Plan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .house-plan {
+            display: flex;
+            flex-direction: column;
+            border: 2px solid #333;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .room {
+            border: 1px solid #666;
+            margin: 5px;
+            padding: 10px;
+            background-color: #e9e9e9;
+        }
+        .room-label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .dimensions {
+            font-size: 12px;
+            color: #555;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>House Plan</h1>
+    <div class="house-plan">
+        <div class="room">
+            <div class="room-label">Living Room</div>
+            <div class="dimensions">Dimensions: 5.0m x 4.0m</div>
+        </div>
+        <div class="room">
+            <div class="room-label">Kitchen</div>
+            <div class="dimensions">Dimensions: 3.5m x 3.0m</div>
+        </div>
+        <div class="room">
+            <div class="room-label">Bedroom 1</div>
+            <div class="dimensions">Dimensions: 4.0m x 3.5m</div>
+        </div>
+        <div class="room">
+            <div class="room-label">Bedroom 2</div>
+            <div class="dimensions">Dimensions: 4.0m x 3.5m</div>
+        </div>
+        <div class="room">
+            <div class="room-label">Bathroom</div>
+            <div class="dimensions">Dimensions: 2.5m x 2.0m</div>
+        </div>
+    </div>
+</body>
+</html>
